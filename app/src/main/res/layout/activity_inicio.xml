@@ -6,14 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".Inicio">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nature You"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="27dp"
-        android:textStyle="bold"
-        android:layout_margin="10dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nature You"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="27dp"
+            android:textStyle="bold"
+            android:layout_margin="10dp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:checkedButton="@+id/rbAlta">
+            <RadioButton
+                android:id="@+id/rbAlta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alta producto"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
+            <RadioButton
+                android:id="@+id/rbBaja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Baja producto"
+                android:textSize="18sp" />
+            <RadioButton
+                android:id="@+id/rbBuscar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Buscar productos por categoria"
+                android:textSize="18sp" />
+            <RadioButton
+                android:id="@+id/rbModificar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Modificar producto"
+                android:textSize="18sp" />
+        </RadioGroup>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IR"
+            android:layout_marginLeft="130dp"/>
+        <WebView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"></WebView>
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

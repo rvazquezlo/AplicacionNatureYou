@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AprobarProductos">
+    tools:context=".AltaProductos">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,17 +21,17 @@
             android:layout_margin="10dp" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_margin="7dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre: "
-                android:textStyle="bold"/>
-            <TextView
+                android:text="Nombre:"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/txtNombre"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvNombre"/>
+                android:layout_height="match_parent" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,10 +42,10 @@
                 android:layout_height="wrap_content"
                 android:text="Descripcion: "
                 android:textStyle="bold" />
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvDescripcion"
+                android:id="@+id/txtDescripcion"
                 android:inputType="textMultiLine" />
         </LinearLayout>
         <LinearLayout
@@ -58,10 +57,11 @@
                 android:layout_height="wrap_content"
                 android:text="Precio: "
                 android:textStyle="bold"/>
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvPrecio"/>
+                android:id="@+id/txtPrecio"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,41 +70,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NumeroProducto: "
+                android:text="Categoría: "
                 android:textStyle="bold"/>
-            <TextView
+            <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvNumeroProducto"/>
+                android:id="@+id/cbCategorias">
+            </Spinner>
         </LinearLayout>
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:checkedButton="@+id/rbAprobar">
-
-            <RadioButton
-                android:id="@+id/rbAprobar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Aprobar"></RadioButton>
-
-            <RadioButton
-                android:id="@+id/rbNegar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Negar"></RadioButton>
-        </RadioGroup>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Siguiente producto"
+            android:text="Alta producto"
             android:layout_marginLeft="100dp"
             android:layout_marginRight="100dp"
             android:layout_marginTop="15dp"/>
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

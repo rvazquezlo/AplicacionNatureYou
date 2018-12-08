@@ -6,6 +6,10 @@ import android.webkit.WebView;
 
 public class Navega extends AppCompatActivity {
 
+    /**
+     * En este método se abre el url en una WebView
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

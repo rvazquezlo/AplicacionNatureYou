@@ -10,6 +10,10 @@ import android.widget.Toast;
 public class Inicio extends AppCompatActivity {
     private RadioButton alta, baja, modifica, navegar;
 
+    /**
+     * En este método se recuperan los RadioButtons necesarios del Activity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,22 +24,26 @@ public class Inicio extends AppCompatActivity {
         navegar = (RadioButton)findViewById(R.id.rbNoticia);
     }
 
+    /**
+     * Este método manda a la Activity seleccionada en el RadioButton
+     * @param v
+     */
     protected void ir(View v){
         try{
            //ver qué botón está seleccionado para determinar a donde redirigir
-           if(alta.isChecked()){
+           if(alta.isChecked()){//mandar a AltaProductos
                Intent myIntent = new Intent(v.getContext(), AltaProductos.class);
                startActivityForResult(myIntent, 0);
            }
-           else if(baja.isChecked()){
+           else if(baja.isChecked()){//mandar a Baja
                Intent myIntent = new Intent(this, Baja.class);
                startActivity(myIntent);
            }
-           else if(navegar.isChecked()){
+           else if(navegar.isChecked()){//mandar a Navegar
                Intent myIntent = new Intent(v.getContext(), Navega.class);
                startActivityForResult(myIntent, 0);
            }
-           else{
+           else{//Mandar a Modificar
                Intent myIntent = new Intent(this, Modificar.class);
                startActivity(myIntent);
            }

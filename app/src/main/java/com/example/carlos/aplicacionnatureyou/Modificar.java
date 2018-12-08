@@ -17,6 +17,11 @@ public class Modificar extends AppCompatActivity {
     private Spinner cbId;
     private EditText nombre, precio, descripcion;
 
+    /**
+     * En este método se recuperan los EditText y el Spinner necesarios del Activity. También se
+     * llena el Spinner.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,10 @@ public class Modificar extends AppCompatActivity {
         llenarId(cbId);
     }
 
+    /**
+     * Este método llena el Spinner con todas las ids correspondientes de la base de datos
+     * @param id
+     */
     protected void llenarId(Spinner id){
         AdminSQLiteOpenHelper admin;
         SQLiteDatabase db;
@@ -43,14 +52,13 @@ public class Modificar extends AppCompatActivity {
             fila = db.rawQuery("select idProducto from productos",null);
 
             listaId = new ArrayList<String>();
-            if(fila.moveToFirst())
-                while(fila.moveToNext())//si tiene datos
+            if(fila.moveToFirst())//si tiene datos
+                while(fila.moveToNext())//recorrer todos los datos
                     listaId.add(fila.getString(0));//agregar los ids a la listaId
             else//Si no hay datos, mandar mensaje
                 Toast.makeText(this,"no hay productos dados de alta",
                         Toast.LENGTH_LONG);
             db.close();//cerrar por seguridad
-
 
             //Pasar los datos de la lista al Spinner adaptándolos
             adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
@@ -65,6 +73,10 @@ public class Modificar extends AppCompatActivity {
         }
     }
 
+    /**
+     * Método que muestra la descripcion, el nombre y el precio de un producto dado su id.
+     * @param v
+     */
     protected void acepte(View v){
         AdminSQLiteOpenHelper admin;
         SQLiteDatabase db;
@@ -73,9 +85,11 @@ public class Modificar extends AppCompatActivity {
         try{
             admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
             db = admin.getWritableDatabase();
+
+            //Pedir información necesaria
             fila = db.rawQuery("select descripcion, nombre, precio from productos where idProducto="
                     + Integer.parseInt(cbId.getSelectedItem().toString()), null);
-            if (fila.moveToFirst()) {//Pedir datos
+            if (fila.moveToFirst()) {//Pedir datos y mostrarlos
                 descripcion.setText(fila.getString(0));
                 nombre.setText(fila.getString(1));
                 precio.setText(fila.getString(2));
@@ -88,6 +102,10 @@ public class Modificar extends AppCompatActivity {
         }
     }
 
+    /**
+     * Método que modifica la información de un producto dado su id.
+     * @param v
+     */
     protected void modificar(View v){
         AdminSQLiteOpenHelper admin;
         SQLiteDatabase db;

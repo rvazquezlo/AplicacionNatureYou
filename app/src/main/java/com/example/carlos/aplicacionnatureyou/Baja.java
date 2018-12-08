@@ -20,6 +20,11 @@ public class Baja extends AppCompatActivity {
     private TextView nom;
     private Spinner id;
 
+    /**
+     * En este método se recuperan el TextView y el Spinner necesarios del Activity. También se
+     * llena el Spinner.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +62,7 @@ public class Baja extends AppCompatActivity {
             adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                     listaId);
             adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            id.setAdapter(adaptador);
+            id.setAdapter(adaptador);//asignar datos
         }
         catch (Exception e) {
             Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
@@ -65,6 +70,11 @@ public class Baja extends AppCompatActivity {
         }
     }
 
+    /**
+     * Este método pone Strings vacíos y pone al Spinner en el índice 0. Esto se hace después de
+     * haber dado de baja a un producto
+     * @param v
+     */
     protected void limpia (View v){
         id.setSelection(0);
         nom.setText("");
@@ -128,14 +138,4 @@ public class Baja extends AppCompatActivity {
         }
     }
 
-    protected void volver(View v){
-        try{
-            Intent myIntent = new Intent(v.getContext(), Inicio.class);
-            startActivityForResult(myIntent, 0);
-        }
-        catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
 }

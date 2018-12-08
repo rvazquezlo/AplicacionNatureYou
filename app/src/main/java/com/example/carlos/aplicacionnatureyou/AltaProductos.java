@@ -19,6 +19,11 @@ public class AltaProductos extends AppCompatActivity {
     private EditText nombre, descripcion, precio;
     private Spinner categoria;
 
+    /**
+     * En este método se recuperan los EditText y el Spinner necesarios del Activity. También se
+     * llena el Spinner.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +35,10 @@ public class AltaProductos extends AppCompatActivity {
         llenaCategoria(categoria);//llenar Spinner
     }
 
+    /**
+     * Este método llena el Spinner de las categorias.
+     * @param categoria
+     */
     protected void llenaCategoria(Spinner categoria){
         ArrayList<String> listaCategoria;
         ArrayAdapter<String> adaptador;
@@ -48,7 +57,7 @@ public class AltaProductos extends AppCompatActivity {
             adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                     listaCategoria);
             adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            categoria.setAdapter(adaptador);
+            categoria.setAdapter(adaptador);//asignar al Spinner
         }
         catch (Exception e) {
             Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
@@ -56,6 +65,11 @@ public class AltaProductos extends AppCompatActivity {
         }
     }
 
+    /**
+     * Este método pone Strings vacíos y pone al Spinner en el índice 0. Esto se hace después de
+     * haber dado de alta un producto
+     * @param v
+     */
     protected void limpia(View v){
         nombre.setText("");
         descripcion.setText("");
@@ -94,19 +108,9 @@ public class AltaProductos extends AppCompatActivity {
             //Meter a Bd
             db.execSQL("INSERT INTO productos (idProducto, descripcion, nombre, precio, categoria) " +
                     "VALUES("+ id +", '" + descripcionS+ "', '"+nombreS+"', "+ precioS+", '"+categoriaS+"')");
-            limpia(v);
+            Toast.makeText(this, "Producto dado de alta", Toast.LENGTH_LONG);
+            limpia(v);//Vuelve a vaciar las casillas
             db.close();//cerrar por seguridad
-        }
-        catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    protected void volver(View v){
-        try{
-            Intent myIntent = new Intent(v.getContext(), Inicio.class);
-            startActivityForResult(myIntent, 0);
         }
         catch (Exception e) {
             Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),

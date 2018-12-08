@@ -84,7 +84,8 @@
             android:text="Alta producto"
             android:layout_marginLeft="100dp"
             android:layout_marginRight="100dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:onClick="alta"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

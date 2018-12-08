@@ -1,16 +1,19 @@
 package com.example.carlos.aplicacionnatureyou;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class AltaProductos extends AppCompatActivity {
     private EditText nombre, descripcion, precio;
@@ -24,6 +27,27 @@ public class AltaProductos extends AppCompatActivity {
         descripcion = (EditText) findViewById(R.id.txtDescripcion);
         precio = (EditText) findViewById(R.id.txtPrecio);
         categoria = (Spinner) findViewById(R.id.cbCategorias);
+        llenaCategoria(categoria);//llenar Spinner
+    }
+
+    public void llenaCategoria(Spinner categoria){
+        ArrayList<String> listaCategoria;
+        ArrayAdapter<String> adaptador;
+
+        listaCategoria =  new ArrayList<String>();//lista para guardar todas las categorias
+        listaCategoria.add("Accesorios");
+        listaCategoria.add("Articulos para el hogar");
+        listaCategoria.add("Articulos para mascotas");
+        listaCategoria.add("Juguetes");
+        listaCategoria.add("Ropa");
+        listaCategoria.add("Utencilios de cocina");
+        listaCategoria.add("Útiles");
+
+        //Pasar los datos de la lista al Spinner adaptándolos
+        adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                listaCategoria);
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoria.setAdapter(adaptador);
     }
 
     public void limpia(View v){
@@ -74,7 +98,11 @@ public class AltaProductos extends AppCompatActivity {
         else
             Toast.makeText(this,"no se cargaron los datos del producto",Toast.LENGTH_LONG).show();
         limpia(v);
+    }
 
+    public void volver(View v){
+        Intent myIntent = new Intent(v.getContext(), Inicio.class);
+        startActivityForResult(myIntent, 0);
     }
 
 }

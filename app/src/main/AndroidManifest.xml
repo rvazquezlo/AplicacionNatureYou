@@ -21,7 +21,8 @@
         <activity android:name=".AltaProductos" />
         <activity android:name=".BuscarProducto" />
         <activity android:name=".Baja" />
-        <activity android:name=".Modificar"></activity>
+        <activity android:name=".Modificar" />
+        <activity android:name=".Navega"></activity>
     </application>
 
 </manifest>

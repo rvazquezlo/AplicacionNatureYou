@@ -58,11 +58,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="IR"
-            android:layout_marginLeft="130dp"/>
-        <WebView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="25dp"></WebView>
+            android:layout_marginLeft="130dp"
+            android:onClick="ir"/>
     </LinearLayout>
 
 

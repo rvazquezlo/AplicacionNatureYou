@@ -39,7 +39,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Aceptar"/>
+                    android:text="Aceptar"
+                    android:onClick="aceptar"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -79,12 +80,14 @@
                 android:layout_height="wrap_content"
                 android:text= "Modificar:"
                 android:id="@+id/btModificar"
-                android:layout_marginLeft="150dp"/>
+                android:layout_marginLeft="150dp"
+                android:onClick="modificar"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text= "Volver"
+                android:onClick="volver"
                 android:id="@+id/btAnterior"/>
         </LinearLayout>
     </LinearLayout>

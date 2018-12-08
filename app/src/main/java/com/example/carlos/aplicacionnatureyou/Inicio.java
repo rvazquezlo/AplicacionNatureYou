@@ -8,7 +8,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class Inicio extends AppCompatActivity {
-    private RadioButton alta, baja, buscar, modifica;
+    private RadioButton alta, baja, buscar, modifica, navegar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +18,10 @@ public class Inicio extends AppCompatActivity {
         baja = (RadioButton)findViewById(R.id.rbBaja);
         buscar = (RadioButton)findViewById(R.id.rbBuscar);
         modifica = (RadioButton)findViewById(R.id.rbModificar);
+        navegar = (RadioButton)findViewById(R.id.rbNoticia);
     }
 
-    public void ir(View v){
+    protected void ir(View v){
         try{
            //ver qué botón está seleccionado para determinar a donde redirigir
            if(alta.isChecked()){
@@ -33,6 +34,10 @@ public class Inicio extends AppCompatActivity {
            }
            else if(buscar.isChecked()){
                Intent myIntent = new Intent(v.getContext(), BuscarProducto.class);
+               startActivityForResult(myIntent, 0);
+           }
+           else if(navegar.isChecked()){
+               Intent myIntent = new Intent(v.getContext(), Navega.class);
                startActivityForResult(myIntent, 0);
            }
            else{

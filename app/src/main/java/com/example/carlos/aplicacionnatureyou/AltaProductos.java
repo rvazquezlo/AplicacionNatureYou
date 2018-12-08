@@ -30,27 +30,33 @@ public class AltaProductos extends AppCompatActivity {
         llenaCategoria(categoria);//llenar Spinner
     }
 
-    public void llenaCategoria(Spinner categoria){
+    protected void llenaCategoria(Spinner categoria){
         ArrayList<String> listaCategoria;
         ArrayAdapter<String> adaptador;
 
-        listaCategoria =  new ArrayList<String>();//lista para guardar todas las categorias
-        listaCategoria.add("Accesorios");
-        listaCategoria.add("Articulos para el hogar");
-        listaCategoria.add("Articulos para mascotas");
-        listaCategoria.add("Juguetes");
-        listaCategoria.add("Ropa");
-        listaCategoria.add("Utencilios de cocina");
-        listaCategoria.add("Útiles");
+        try{
+            listaCategoria =  new ArrayList<String>();//lista para guardar todas las categorias
+            listaCategoria.add("Accesorios");
+            listaCategoria.add("Articulos para el hogar");
+            listaCategoria.add("Articulos para mascotas");
+            listaCategoria.add("Juguetes");
+            listaCategoria.add("Ropa");
+            listaCategoria.add("Utencilios de cocina");
+            listaCategoria.add("Útiles");
 
-        //Pasar los datos de la lista al Spinner adaptándolos
-        adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-                listaCategoria);
-        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categoria.setAdapter(adaptador);
+            //Pasar los datos de la lista al Spinner adaptándolos
+            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                    listaCategoria);
+            adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            categoria.setAdapter(adaptador);
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void limpia(View v){
+    protected void limpia(View v){
         nombre.setText("");
         descripcion.setText("");
         precio.setText("");
@@ -63,46 +69,58 @@ public class AltaProductos extends AppCompatActivity {
      * por medio de un Toast
      * @param v
      */
-    public void alta(View v){
+    protected void alta(View v){
         String nombreS, descripcionS, categoriaS;
         double precioS;
         int id;
 
-        AdminSQLiteOpenHelper admin= new AdminSQLiteOpenHelper(this,"administracion",null,1);
-        SQLiteDatabase db=admin.getWritableDatabase();
+        try{
+            AdminSQLiteOpenHelper admin= new AdminSQLiteOpenHelper(this,"administracion",null,1);
+            SQLiteDatabase db=admin.getWritableDatabase();
 
-        //recuperar en variables que voy a meter en la BD de la caja de texto
-        nombreS = nombre.getText().toString();
-        descripcionS = descripcion.getText().toString();
-        precioS = Double.parseDouble(precio.getText().toString());
-        categoriaS = categoria.getSelectedItem().toString();
+            //recuperar en variables que voy a meter en la BD de la caja de texto
+            nombreS = nombre.getText().toString();
+            descripcionS = descripcion.getText().toString();
+            precioS = Double.parseDouble(precio.getText().toString());
+            categoriaS = categoria.getSelectedItem().toString();
 
-        //Asignar un id al producto
-        Cursor fila= db.rawQuery("select max(idProducto)from productos",null);//pedir la ultima id
-        if(fila.moveToFirst()) //ya se registraron productos
-            id = fila.getInt(0);
-        else //primer producto
-            id = 1;
-        db.close();//cerrar por seguridad
+            //Asignar un id al producto
+            Cursor fila= db.rawQuery("select max(idProducto)from productos",null);//pedir la ultima id
+            if(fila.moveToFirst()) //ya se registraron productos
+                id = fila.getInt(0);
+            else //primer producto
+                id = 1;
+            db.close();//cerrar por seguridad
 
-        //Content Value para meterlos a la BD
-        ContentValues registro = new ContentValues();
-        registro.put("idProducto",id);
-        registro.put("descripcion",descripcionS);
-        registro.put("nombre",nombreS);
-        registro.put("precio",precioS);
-        registro.put("categoria",categoriaS);
-        if(db.insert("productos",null,registro) > 0)
-            Toast.makeText(this,"se cargaron los datos del producto con el id: "
-                    + id,Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(this,"no se cargaron los datos del producto",Toast.LENGTH_LONG).show();
-        limpia(v);
+            //Content Value para meterlos a la BD
+            ContentValues registro = new ContentValues();
+            registro.put("idProducto",id);
+            registro.put("descripcion",descripcionS);
+            registro.put("nombre",nombreS);
+            registro.put("precio",precioS);
+            registro.put("categoria",categoriaS);
+            if(db.insert("productos",null,registro) > 0)
+                Toast.makeText(this,"se cargaron los datos del producto con el id: "
+                        + id,Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(this,"no se cargaron los datos del producto",Toast.LENGTH_LONG).show();
+            limpia(v);
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
+
     }
 
-    public void volver(View v){
-        Intent myIntent = new Intent(v.getContext(), Inicio.class);
-        startActivityForResult(myIntent, 0);
+    protected void volver(View v){
+        try{
+            Intent myIntent = new Intent(v.getContext(), Inicio.class);
+            startActivityForResult(myIntent, 0);
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
-
 }

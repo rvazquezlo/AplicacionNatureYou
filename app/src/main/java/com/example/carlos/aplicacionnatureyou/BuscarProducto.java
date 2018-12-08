@@ -31,27 +31,33 @@ public class BuscarProducto extends AppCompatActivity {
         llenaCategoria(cate);//Llenar combo de categorias
     }
 
-    public void llenaCategoria(Spinner categoria){
+    protected void llenaCategoria(Spinner categoria){
         ArrayList<String> listaCategoria;
         ArrayAdapter<String> adaptador;
 
-        listaCategoria =  new ArrayList<String>();//lista para guardar todas las categorias
-        listaCategoria.add("Accesorios");
-        listaCategoria.add("Articulos para el hogar");
-        listaCategoria.add("Articulos para mascotas");
-        listaCategoria.add("Juguetes");
-        listaCategoria.add("Ropa");
-        listaCategoria.add("Utencilios de cocina");
-        listaCategoria.add("Útiles");
+        try{
+            listaCategoria =  new ArrayList<String>();//lista para guardar todas las categorias
+            listaCategoria.add("Accesorios");
+            listaCategoria.add("Articulos para el hogar");
+            listaCategoria.add("Articulos para mascotas");
+            listaCategoria.add("Juguetes");
+            listaCategoria.add("Ropa");
+            listaCategoria.add("Utencilios de cocina");
+            listaCategoria.add("Útiles");
 
-        //Pasar los datos de la lista al Spinner adaptándolos
-        adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-                listaCategoria);
-        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categoria.setAdapter(adaptador);
+            //Pasar los datos de la lista al Spinner adaptándolos
+            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                    listaCategoria);
+            adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            categoria.setAdapter(adaptador);
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void limpia(View view){
+    protected void limpia(View view){
         id.setText("");
         descript.setText("");
         nom.setText("");
@@ -60,60 +66,78 @@ public class BuscarProducto extends AppCompatActivity {
         cbId.setSelection(0);
     }
 
-    public void volver(View v){
-        Intent in= new Intent(this,Inicio.class);
-        startActivity(in);
+    protected void volver(View v){
+        try{
+            Intent in= new Intent(this,Inicio.class);
+            startActivity(in);
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void aceptar(View v){
+    protected void aceptar(View v){
         AdminSQLiteOpenHelper admin;
         SQLiteDatabase db;
         Cursor fila;
         ArrayList<String> listaId;
         ArrayAdapter adaptador;
 
-        admin = new AdminSQLiteOpenHelper(this,"administracion",null,1);
-        db = admin.getWritableDatabase();
+        try{
+            admin = new AdminSQLiteOpenHelper(this,"administracion",null,1);
+            db = admin.getWritableDatabase();
 
-        //pedir los id de los productos de una categoria
-        fila = db.rawQuery("select idProducto from productos where categoria=" +
-                (int)cate.getSelectedItem(),null);
+            //pedir los id de los productos de una categoria
+            fila = db.rawQuery("select idProducto from productos where categoria=" +
+                    (int)cate.getSelectedItem(),null);
 
-        listaId = new ArrayList<String>();
-        while(fila.moveToFirst())//si tiene datos
-            listaId.add(fila.getString(0));//agregar los ids a la listaId
-        db.close();//cerrar por seguridad
+            listaId = new ArrayList<String>();
+            while(fila.moveToFirst())//si tiene datos
+                listaId.add(fila.getString(0));//agregar los ids a la listaId
+            db.close();//cerrar por seguridad
 
-        //Si no hay datos, mandar mensaje
-        if(listaId.isEmpty())
-            Toast.makeText(this,"no hay productos en la categoria seleccionada ",
-                    Toast.LENGTH_LONG);
-        else{
-            //Pasar los datos de la lista al Spinner adaptándolos
-            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-                    listaId);
-            adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            cbId.setAdapter(adaptador);//Ponerlos en cbId
+            //Si no hay datos, mandar mensaje
+            if(listaId.isEmpty())
+                Toast.makeText(this,"no hay productos en la categoria seleccionada ",
+                        Toast.LENGTH_LONG);
+            else{
+                //Pasar los datos de la lista al Spinner adaptándolos
+                adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                        listaId);
+                adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                cbId.setAdapter(adaptador);//Ponerlos en cbId
 
-            limpia(v);//Se limpian los datos para una nueva busqueda
+                limpia(v);//Se limpian los datos para una nueva busqueda
+            }
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void buscar(View v) {
+    protected void buscar(View v) {
         AdminSQLiteOpenHelper admin;
         SQLiteDatabase db;
         Cursor fila;
 
-        admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        db = admin.getWritableDatabase();
-        fila = db.rawQuery("select descripcion, nombre, precio, id from productos where idProducto="
-                + (int) cbId.getSelectedItem(), null);
-        if (fila.moveToFirst()) {//Pedir datos
-            descript.setText(fila.getString(0));
-            nom.setText(fila.getString(1));
-            price.setText(fila.getString(2));
-            id.setText(fila.getString(3));
+        try{
+            admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+            db = admin.getWritableDatabase();
+            fila = db.rawQuery("select descripcion, nombre, precio, id from productos where idProducto="
+                    + (int) cbId.getSelectedItem(), null);
+            if (fila.moveToFirst()) {//Pedir datos
+                descript.setText(fila.getString(0));
+                nom.setText(fila.getString(1));
+                price.setText(fila.getString(2));
+                id.setText(fila.getString(3));
+            }
+            db.close();
         }
-        db.close();
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }

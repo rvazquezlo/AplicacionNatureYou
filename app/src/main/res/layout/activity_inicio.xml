@@ -53,6 +53,13 @@
                 android:layout_marginBottom="10dp"
                 android:text="Modificar producto"
                 android:textSize="18sp" />
+            <RadioButton
+                android:id="@+id/rbNoticia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Ir a la red"
+                android:textSize="18sp" />
         </RadioGroup>
         <Button
             android:layout_width="wrap_content"

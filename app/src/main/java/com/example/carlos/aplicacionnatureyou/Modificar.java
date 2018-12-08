@@ -43,21 +43,21 @@ public class Modificar extends AppCompatActivity {
             fila = db.rawQuery("select idProducto from productos",null);
 
             listaId = new ArrayList<String>();
-            while(fila.moveToFirst())//si tiene datos
-                listaId.add(fila.getString(0));//agregar los ids a la listaId
-            db.close();//cerrar por seguridad
-
-            //Si no hay datos, mandar mensaje
-            if(listaId.isEmpty())
+            if(fila.moveToFirst())
+                while(fila.moveToNext())//si tiene datos
+                    listaId.add(fila.getString(0));//agregar los ids a la listaId
+            else//Si no hay datos, mandar mensaje
                 Toast.makeText(this,"no hay productos dados de alta",
                         Toast.LENGTH_LONG);
-            else {
-                //Pasar los datos de la lista al Spinner adaptándolos
-                adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-                        listaId);
-                adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                cbId.setAdapter(adaptador);//Ponerlos en cbId
-            }
+            db.close();//cerrar por seguridad
+
+
+            //Pasar los datos de la lista al Spinner adaptándolos
+            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                    listaId);
+            adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            cbId.setAdapter(adaptador);//Ponerlos en cbId
+
         }
         catch (Exception e) {
             Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
@@ -65,7 +65,7 @@ public class Modificar extends AppCompatActivity {
         }
     }
 
-    protected void aceptar(View v){
+    protected void acepte(View v){
         AdminSQLiteOpenHelper admin;
         SQLiteDatabase db;
         Cursor fila;
@@ -74,7 +74,7 @@ public class Modificar extends AppCompatActivity {
             admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
             db = admin.getWritableDatabase();
             fila = db.rawQuery("select descripcion, nombre, precio from productos where idProducto="
-                    + (int) cbId.getSelectedItem(), null);
+                    + Integer.parseInt(cbId.getSelectedItem().toString()), null);
             if (fila.moveToFirst()) {//Pedir datos
                 descripcion.setText(fila.getString(0));
                 nombre.setText(fila.getString(1));
@@ -104,7 +104,7 @@ public class Modificar extends AppCompatActivity {
 
             //hacer el update
             if(db.update("productos",registro,"idProducto=" +
-                    (int)cbId.getSelectedItem(),null) == 1)
+                    Integer.parseInt(cbId.getSelectedItem().toString()),null) == 1)
                 Toast.makeText(this,"se modificaron los datos del producto",
                         Toast.LENGTH_LONG).show();
             else

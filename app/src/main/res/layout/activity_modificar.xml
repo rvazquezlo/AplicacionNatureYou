@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Aceptar"
-                    android:onClick="aceptar"/>
+                    android:onClick="acepte"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -82,13 +82,7 @@
                 android:id="@+id/btModificar"
                 android:layout_marginLeft="150dp"
                 android:onClick="modificar"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text= "Volver"
-                android:onClick="volver"
-                android:id="@+id/btAnterior"/>
+
         </LinearLayout>
     </LinearLayout>
 

@@ -11,14 +11,13 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table productos (idProducto integer primary key, descripcion text, nombre text, " +
-                "precio double,categoria text)");
+        db.execSQL("create table productos (idProducto integer primary key, descripcion text, nombre text, precio double, categoria text)");
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists productos");
         db.execSQL("create table productos (idProducto integer primary key, descripcion text, nombre text, " +
-                "precio double,categoria text)");
+                "precio double, categoria text)");
 
 
     }

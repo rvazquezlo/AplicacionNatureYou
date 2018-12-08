@@ -87,30 +87,20 @@ public class AltaProductos extends AppCompatActivity {
             //Asignar un id al producto
             Cursor fila= db.rawQuery("select max(idProducto)from productos",null);//pedir la ultima id
             if(fila.moveToFirst()) //ya se registraron productos
-                id = fila.getInt(0);
+                id = fila.getInt(0) + 1 ;
             else //primer producto
                 id = 1;
-            db.close();//cerrar por seguridad
 
-            //Content Value para meterlos a la BD
-            ContentValues registro = new ContentValues();
-            registro.put("idProducto",id);
-            registro.put("descripcion",descripcionS);
-            registro.put("nombre",nombreS);
-            registro.put("precio",precioS);
-            registro.put("categoria",categoriaS);
-            if(db.insert("productos",null,registro) > 0)
-                Toast.makeText(this,"se cargaron los datos del producto con el id: "
-                        + id,Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(this,"no se cargaron los datos del producto",Toast.LENGTH_LONG).show();
+            //Meter a Bd
+            db.execSQL("INSERT INTO productos (idProducto, descripcion, nombre, precio, categoria) " +
+                    "VALUES("+ id +", '" + descripcionS+ "', '"+nombreS+"', "+ precioS+", '"+categoriaS+"')");
             limpia(v);
+            db.close();//cerrar por seguridad
         }
         catch (Exception e) {
             Toast.makeText(getApplicationContext(), "error en Inicio: " + e.toString(),
                     Toast.LENGTH_SHORT).show();
         }
-
     }
 
     protected void volver(View v){

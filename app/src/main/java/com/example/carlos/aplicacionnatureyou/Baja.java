@@ -47,9 +47,10 @@ public class Baja extends AppCompatActivity {
             admin = new AdminSQLiteOpenHelper(this,"administracion",null,1);
             db = admin.getWritableDatabase();
             fila = db.rawQuery("select idProducto from productos",null);
-            while(fila.moveToFirst())//si tiene datos
-                listaId.add(fila.getString(0));//agregar los idProducto a la listaId
-            if(listaId.isEmpty())
+            if(fila.moveToFirst())//si tiene datos
+                while(fila.moveToNext())
+                    listaId.add(fila.getString(0));//agregar los idProducto a la listaId
+            else
                 Toast.makeText(this,"no hay productos dados de alta ",Toast.LENGTH_LONG);
 
             //Pasar los datos de la lista al Spinner adaptándolos
@@ -82,7 +83,7 @@ public class Baja extends AppCompatActivity {
             db = admin.getWritableDatabase();
 
             //dar de baja al producto con la clave seleccionada del Spinner
-            if(db.delete("productos","idProducto=" + (int)id.getSelectedItem(),
+            if(db.delete("productos","idProducto=" + Integer.parseInt(id.getSelectedItem().toString()),
                     null) == 1)//si se dio de baja
                 Toast.makeText(this,"producto eliminado",Toast.LENGTH_LONG).show();
             else//no se dio de baja
@@ -112,10 +113,13 @@ public class Baja extends AppCompatActivity {
 
             //pedir el nombre del producto dado el idProducto
             fila = db.rawQuery("select nombre from productos where idProducto=" +
-                    (int)id.getSelectedItem(),null);
+                    Integer.parseInt(id.getSelectedItem().toString()),null);
 
             //debe regresar un dato porque el idProducto viene directo de la base de datos
-            nom.setText(fila.getString(0));//poner el nombre en la pantalla
+            if(fila.moveToFirst())
+                nom.setText(fila.getString(0));//poner el nombre en la pantalla
+            else
+                Toast.makeText(getApplicationContext(),"no hay datos", Toast.LENGTH_LONG);
             db.close();//cerrar por seguridad
         }
         catch (Exception e) {

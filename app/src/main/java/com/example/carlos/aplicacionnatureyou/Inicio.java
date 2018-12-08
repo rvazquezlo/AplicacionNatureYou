@@ -8,7 +8,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class Inicio extends AppCompatActivity {
-    private RadioButton alta, baja, buscar, modifica, navegar;
+    private RadioButton alta, baja, modifica, navegar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +16,6 @@ public class Inicio extends AppCompatActivity {
         setContentView(R.layout.activity_inicio);
         alta = (RadioButton)findViewById(R.id.rbAlta);
         baja = (RadioButton)findViewById(R.id.rbBaja);
-        buscar = (RadioButton)findViewById(R.id.rbBuscar);
         modifica = (RadioButton)findViewById(R.id.rbModificar);
         navegar = (RadioButton)findViewById(R.id.rbNoticia);
     }
@@ -29,20 +28,16 @@ public class Inicio extends AppCompatActivity {
                startActivityForResult(myIntent, 0);
            }
            else if(baja.isChecked()){
-               Intent myIntent = new Intent(v.getContext(), Baja.class);
-               startActivityForResult(myIntent, 0);
-           }
-           else if(buscar.isChecked()){
-               Intent myIntent = new Intent(v.getContext(), BuscarProducto.class);
-               startActivityForResult(myIntent, 0);
+               Intent myIntent = new Intent(this, Baja.class);
+               startActivity(myIntent);
            }
            else if(navegar.isChecked()){
                Intent myIntent = new Intent(v.getContext(), Navega.class);
                startActivityForResult(myIntent, 0);
            }
            else{
-               Intent myIntent = new Intent(v.getContext(), Modificar.class);
-               startActivityForResult(myIntent, 0);
+               Intent myIntent = new Intent(this, Modificar.class);
+               startActivity(myIntent);
            }
         }
         catch (Exception e) {

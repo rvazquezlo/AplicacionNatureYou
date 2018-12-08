@@ -94,6 +94,8 @@ public class BuscarProducto extends AppCompatActivity {
                     listaId);
             adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             cbId.setAdapter(adaptador);//Ponerlos en cbId
+
+            limpia(v);//Se limpian los datos para una nueva busqueda
         }
     }
 
